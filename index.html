@@ -1,0 +1,29 @@
+<!-- no robes codigo w pajero xdd -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Quemadotas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header-bar">
+        <h1 tabindex="0">
+            Quemadotas
+            <span class="h1-sub">por dani, y mas.</span>
+        </h1>
+        <input id="search-box" class="search-box" type="text" placeholder="Buscar.." autocomplete="off" />
+    </div>
+    <div id="gallery" class="gallery"></div>
+
+    <div id="img-modal" style="display:none;">
+        <button id="download-btn" class="download-btn" title="Descargar">
+            <svg viewBox="0 0 20 20"><path d="M10 2a1 1 0 0 1 1 1v8.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L9 11.59V3a1 1 0 0 1 1-1zm-7 13a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1z"/></svg>
+        </button>
+        <img id="modal-img" src="" alt="Vista previa" />
+    </div>
+    <script src="gallery.js"></script>
+</body>
+</html>
