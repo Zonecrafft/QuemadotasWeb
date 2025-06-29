@@ -30,10 +30,14 @@ function renderGallery(images) {
             media.alt = img;
             media.style.width = '100%';
             media.style.display = 'block';
-        } else {
+        } else if (ext === 'gif' || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'webp') {
+
             media = document.createElement('img');
             media.src = `fire/${img}`;
             media.alt = img;
+        } else {
+
+            return;
         }
 
         card.appendChild(media);
@@ -50,7 +54,6 @@ function showModal(src, filename) {
     let modalImg = document.getElementById('modal-img');
     let downloadBtn = document.getElementById('download-btn');
     if (!modal || !modalImg || !downloadBtn) return;
-
 
     const ext = filename.split('.').pop().toLowerCase();
     if (ext === 'mp4') {
@@ -72,12 +75,15 @@ function showModal(src, filename) {
         let oldVideo = document.getElementById('modal-img-video');
         if (oldVideo) oldVideo.remove();
         modalImg.insertAdjacentElement('afterend', video);
-    } else {
+    } else if (ext === 'gif' || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'webp') {
 
         modalImg.src = src;
         modalImg.style.display = '';
         let oldVideo = document.getElementById('modal-img-video');
         if (oldVideo) oldVideo.remove();
+    } else {
+
+        return;
     }
 
     modal.style.display = 'flex';
