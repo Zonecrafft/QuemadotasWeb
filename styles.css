@@ -1,4 +1,4 @@
-    /* no robes codigo w pajero xdd */
+/* no robes codigo w pajero xdd */
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -48,7 +48,8 @@ body {
     left: 50%;
     top: 100%;
     transform: translateX(-50%) translateY(0);
-    background: rgba(36,36,48,0.97);
+    background: #181818;
+    backdrop-filter: blur(2px);
     color: #7fd6ff;
     font-size: 1.05rem;
     font-weight: 400;
@@ -107,7 +108,6 @@ body {
     box-shadow: 0 2px 12px #0002;
 }
 
-/* Filter buttons */
 .filter-bar {
     display: flex;
     gap: 12px;
@@ -137,7 +137,6 @@ body {
     opacity: 1;
 }
 
-/* Image counter */
 .image-counter {
     display: block;
     text-align: right;
@@ -156,12 +155,6 @@ h1 {
     letter-spacing: 2px;
     font-weight: 700;
     font-size: 2.3rem;
-    background: rgba(24,24,24,0.85);
-    backdrop-filter: blur(2px);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
 }
 
 .gallery {

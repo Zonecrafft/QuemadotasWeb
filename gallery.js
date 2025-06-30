@@ -6,7 +6,7 @@ let currentSearch = '';
 
 function updateCounter(count) {
     const counter = document.getElementById('image-counter');
-    if (counter) counter.textContent = `${count} imágene${count === 1 ? '' : 's'}`;
+    if (counter) counter.textContent = `${count}${count === 1 ? '' : ''}`;
 }
 
 function filterImages(images, filter, search) {
@@ -147,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Filter buttons
     const filterBar = document.querySelector('.filter-bar');
     if (filterBar) {
         filterBar.addEventListener('click', function(e) {
