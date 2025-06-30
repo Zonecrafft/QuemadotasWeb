@@ -1,12 +1,37 @@
 // no robes codigo w pajero xdd
 
 let allImages = [];
+let currentFilter = 'all';
+let currentSearch = '';
+
+function updateCounter(count) {
+    const counter = document.getElementById('image-counter');
+    if (counter) counter.textContent = `${count} imágene${count === 1 ? '' : 's'}`;
+}
+
+function filterImages(images, filter, search) {
+    let filtered = images;
+    if (filter === 'images') {
+        filtered = filtered.filter(img => {
+            const ext = img.split('.').pop().toLowerCase();
+            return ['jpg', 'jpeg', 'png', 'webp'].includes(ext);
+        });
+    } else if (filter === 'gifs') {
+        filtered = filtered.filter(img => img.toLowerCase().endsWith('.gif'));
+    } else if (filter === 'videos') {
+        filtered = filtered.filter(img => img.toLowerCase().endsWith('.mp4'));
+    }
+    if (search) {
+        filtered = filtered.filter(img => img.toLowerCase().includes(search));
+    }
+    return filtered;
+}
 
 fetch('fire/images.json')
     .then(res => res.json())
     .then(images => {
         allImages = images;
-        renderGallery(images);
+        renderGallery(filterImages(allImages, currentFilter, currentSearch));
     });
 
 function renderGallery(images) {
@@ -46,6 +71,7 @@ function renderGallery(images) {
 
         card.onclick = () => showModal(`fire/${img}`, img);
     });
+    updateCounter(images.length);
 }
 
 
@@ -113,14 +139,25 @@ function showModal(src, filename) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-box');
-    if (!searchBox) return;
-    searchBox.addEventListener('input', function() {
-        const val = this.value.trim().toLowerCase();
-        if (!val) {
-            renderGallery(allImages);
-        } else {
-            const filtered = allImages.filter(img => img.toLowerCase().includes(val));
+    if (searchBox) {
+        searchBox.addEventListener('input', function() {
+            currentSearch = this.value.trim().toLowerCase();
+            const filtered = filterImages(allImages, currentFilter, currentSearch);
             renderGallery(filtered);
-        }
-    });
+        });
+    }
+
+    // Filter buttons
+    const filterBar = document.querySelector('.filter-bar');
+    if (filterBar) {
+        filterBar.addEventListener('click', function(e) {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-filter');
+                const filtered = filterImages(allImages, currentFilter, currentSearch);
+                renderGallery(filtered);
+            }
+        });
+    }
 });
