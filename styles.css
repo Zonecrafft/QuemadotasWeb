@@ -179,10 +179,10 @@ h1 {
 }
 
 .image-card {
-    background: linear-gradient(135deg, #232323 70%, #23243a 100%);
+    background: transparent;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 6px 32px 0 rgba(0,0,0,0.22), 0 1.5px 6px 0 rgba(255,255,255,0.03) inset;
+    box-shadow: none;
     transition: 
         transform 0.22s cubic-bezier(.4,2,.6,1),
         box-shadow 0.22s cubic-bezier(.4,2,.6,1),
@@ -194,18 +194,14 @@ h1 {
     backdrop-filter: blur(2.5px);
     border: 1.5px solid rgba(255,255,255,0.06);
     position: relative;
-    display: block;
-    width: 100%;
+    display: inline-block; /* Cambia a inline-block para que se ajuste al contenido */
     margin-bottom: 22px;
-    padding-top: 36px;
-
+    /* Quita width y padding-top */
     min-height: unset;
     aspect-ratio: unset;
     flex-direction: unset;
     align-items: unset;
     justify-content: unset;
-
-    padding-top: 36px;
     break-inside: avoid;
 }
 
@@ -224,19 +220,17 @@ h1 {
     background: rgba(40,40,50,0.93);
 }
 
-.image-card img {
-    width: 100%;
-    height: auto;
+.image-card img,
+.image-card video {
     display: block;
-    object-fit: contain;
-    aspect-ratio: unset;
-    border-radius: 14px;
-    box-shadow: 0 1.5px 8px 0 rgba(0,0,0,0.13);
-    transition: filter 0.33s cubic-bezier(.4,2,.6,1), transform 0.33s cubic-bezier(.4,2,.6,1);
-    background: repeating-conic-gradient(#222 0% 25%, #333 0% 50%) 50% / 32px 32px;
-
     max-width: 100%;
     height: auto;
+    width: auto; /* Permite que tome su tamaño natural */
+    object-fit: unset; /* Quita el ajuste forzado */
+    border-radius: 14px;
+    margin: 0 auto;
+    box-shadow: 0 1.5px 8px 0 rgba(0,0,0,0.13);
+    background: none;
 }
 
 .image-card:hover img {
