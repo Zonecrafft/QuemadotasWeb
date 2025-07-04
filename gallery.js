@@ -40,7 +40,7 @@ function renderGallery(images) {
     images.forEach((img, idx) => {
         const card = document.createElement('div');
         card.className = 'image-card';
-        card.style.animationDelay = `${idx * 0.07}s`;
+        card.style.animationDelay = `${idx * 0.03}s`; // Reduced from 0.07 to 0.03
 
         const ext = img.split('.').pop().toLowerCase();
         let media;
@@ -368,6 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.querySelectorAll('.image-card').forEach((el, i) => {
-      el.style.setProperty('--stagger-delay', `${i * 0.07}s`);
+      el.style.setProperty('--stagger-delay', `${i * 0.03}s`);  // Reduced from 0.07 to 0.03
     });
 });
