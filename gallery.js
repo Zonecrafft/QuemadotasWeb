@@ -27,11 +27,63 @@ function filterImages(images, filter, search) {
     return filtered;
 }
 
+function updateQuemadotasList(images) {
+    const quemadotasList = document.getElementById('quemadotas-list');
+    if (!quemadotasList) return;
+    quemadotasList.innerHTML = '';
+
+    const counts = {};
+    images.forEach(img => {
+        const match = img.match(/^(.+?)(\d+)?\.[^.]+$/);
+        const base = match ? match[1] : img;
+        counts[base] = (counts[base] || 0) + 1;
+    });
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+    sorted.forEach(([base, count]) => {
+        const li = document.createElement('li');
+        li.textContent = `${base.trim()} (${count})`;
+        li.setAttribute('data-base', base.trim());
+        quemadotasList.appendChild(li);
+    });
+
+
+    quemadotasList.querySelectorAll('li').forEach(li => {
+        li.onclick = function() {
+            const base = this.getAttribute('data-base');
+
+            const searchBox = document.getElementById('search-box');
+            if (searchBox) {
+                searchBox.value = base;
+                currentSearch = base.toLowerCase();
+                const filtered = filterImages(allImages, currentFilter, currentSearch);
+                renderGallery(filtered);
+            }
+
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menu-hamburger');
+            if (sidebar && menuBtn) {
+                sidebar.classList.add('closing');
+                menuBtn.classList.remove('open');
+                sidebar.addEventListener('animationend', function handler(e) {
+                    if (e.animationName === 'sidebarOut') {
+                        sidebar.style.display = 'none';
+                        sidebar.classList.remove('closing');
+                        sidebar.removeEventListener('animationend', handler);
+                    }
+                });
+            }
+        };
+    });
+}
+
 fetch('fire/images.json')
     .then(res => res.json())
     .then(images => {
         allImages = images;
         renderGallery(filterImages(allImages, currentFilter, currentSearch));
+        updateQuemadotasList(allImages);
     });
 
 function renderGallery(images) {
@@ -40,7 +92,7 @@ function renderGallery(images) {
     images.forEach((img, idx) => {
         const card = document.createElement('div');
         card.className = 'image-card';
-        card.style.animationDelay = `${idx * 0.03}s`; // Reduced from 0.07 to 0.03
+        card.style.animationDelay = `${idx * 0.03}s`;
 
         const ext = img.split('.').pop().toLowerCase();
         let media;
@@ -335,7 +387,7 @@ function removeZoomEffect(img) {
                     img._zoomHelper.remove();
                     delete img._zoomHelper;
                 }
-            }, 350);
+            }, 50);
         }
         delete img._zoomHandlers;
     }
@@ -368,6 +420,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.querySelectorAll('.image-card').forEach((el, i) => {
-      el.style.setProperty('--stagger-delay', `${i * 0.03}s`);  // Reduced from 0.07 to 0.03
+      el.style.setProperty('--stagger-delay', `${i * 0.02}s`);
     });
 });
